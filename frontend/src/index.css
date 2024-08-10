@@ -41,7 +41,7 @@ header a {
 .workout-details {
   background: #fff;
   border-radius: 4px;
-  margin: 20px auto;
+  margin: 20px;
   padding: 20px;
   position: relative;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
@@ -68,6 +68,11 @@ header a {
 }
 
 /* new workout form */
+.create {
+  border-radius: 4px;
+  margin: 20px;
+  padding: 20px;
+}
 label, input {
   display: block;
 }
@@ -96,4 +101,7 @@ div.error {
   color: var(--error);
   border-radius: 4px;
   margin: 20px 0;
+}
+input.error {
+  border: 1px solid var(--error);
 }
