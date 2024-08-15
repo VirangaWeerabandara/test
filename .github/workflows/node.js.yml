@@ -23,6 +23,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: .backend/package-lock.json
 
     - name: Create .env file and add secret
       run: |
