@@ -13,13 +13,20 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
     - uses: actions/checkout@v3
+    
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: |
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Create .env file and add secret
+      run: |
         touch .env
-        echo "${{ secrets.TEST }}" > .env
-    - run: pm2 restart api
+        echo "TEST=${{ secrets.TEST }}" > .env
+        
+    - name: Restart application with PM2
+      run: pm2 restart api
