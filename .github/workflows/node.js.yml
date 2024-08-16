@@ -10,16 +10,27 @@ jobs:
     strategy:
       matrix:
         node-version: [21.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
     - uses: actions/checkout@v3
+      
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: |
+        cache-dependency-path: backend/package-lock.json
+    
+    - name: Install dependencies
+      run: npm ci
+      working-directory: ./backend
+
+    - name: Create .env file and add secret
+      run: |
         touch .env
         echo "${{ secrets.TEST }}" > .env
-    - run: pm2 restart api
+      working-directory: ./backend
+
+    - name: Restart application with PM2
+      run: pm2 restart api
+      working-directory: ./backend
